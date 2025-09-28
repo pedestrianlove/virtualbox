@@ -26,7 +26,7 @@ jobs:
             libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev libxext-dev \
             libasound2-dev libsdl2-dev \
             mesa-common-dev libglu1-mesa-dev \
-            yasm pkg-config unzip bzip2 \
+            yasm pkg-config unzip bzip2 xsltproc \
             linux-headers-$(uname -r) kbuild
       - name: Configure
         run: |
