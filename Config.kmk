@@ -5,7 +5,7 @@
 # This file gets included by all makefiles through the
 # include $(KBUILD_PATH)/header.kmk statement.
 #
-VBOX_SVN_REV_CUS := 0 # Or set appropriately
+VBOX_SVN_REV := 0 # Or set appropriately
 #
 # Copyright (C) 2006-2025 Oracle and/or its affiliates.
 #
