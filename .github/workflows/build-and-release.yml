@@ -31,7 +31,7 @@ jobs:
       - name: Configure
         run: |
           which python
-          ./configure --disable-docs --build-headless --with-python=/usr/bin/python3
+          ./configure --disable-docs --build-headless --disable-python
           test -f env.sh
 
       - name: Build
