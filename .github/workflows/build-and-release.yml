@@ -27,7 +27,7 @@ jobs:
             libasound2-dev libsdl2-dev \
             mesa-common-dev libglu1-mesa-dev \
             yasm pkg-config unzip bzip2 xsltproc \
-            linux-headers-$(uname -r) kbuild makeself libcap-dev libvpx-dev liblzf-dev libpng-dev python3 python3-dev python-is-python3 libdevmapper-dev
+            linux-headers-$(uname -r) kbuild libpam0g-dev makeself libcap-dev libvpx-dev liblzf-dev libpng-dev python3 python3-dev python-is-python3 libdevmapper-dev
       - name: Configure
         run: |
           which python
