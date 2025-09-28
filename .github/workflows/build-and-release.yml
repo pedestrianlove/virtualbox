@@ -27,7 +27,7 @@ jobs:
             libasound2-dev libsdl2-dev \
             mesa-common-dev libglu1-mesa-dev \
             yasm pkg-config unzip bzip2 xsltproc \
-            linux-headers-$(uname -r) kbuild libvpx-dev liblzf-dev libpng-dev python3
+            linux-headers-$(uname -r) kbuild libvpx-dev liblzf-dev libpng-dev python3 python-is-python3
       - name: Configure
         run: |
           ./configure --disable-docs --build-headless
