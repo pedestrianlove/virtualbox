@@ -30,6 +30,7 @@ jobs:
             linux-headers-$(uname -r) kbuild libvpx-dev liblzf-dev libpng-dev python3 python-is-python3
       - name: Configure
         run: |
+          python --version
           ./configure --disable-docs --build-headless
           test -f env.sh
 
