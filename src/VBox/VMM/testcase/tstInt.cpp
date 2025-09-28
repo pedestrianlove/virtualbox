@@ -56,6 +56,9 @@
 #include <iprt/alloc.h>
 #include <iprt/time.h>
 #include <iprt/path.h>
+#ifndef VBOX_SVN_REV
+#define VBOX_SVN_REV 0
+#endif
 
 
 int main(int argc, char **argv)
