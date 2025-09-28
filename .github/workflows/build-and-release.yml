@@ -20,18 +20,17 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             build-essential python3 perl \
-            libqt6base-dev qt6-base-dev-tools \
+            qt6-base-dev-tools \
             libssl-dev libcurl4-openssl-dev \
             libxml2-dev libxslt1-dev \
             libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev libxext-dev \
             libasound2-dev libsdl2-dev \
             mesa-common-dev libglu1-mesa-dev \
             yasm pkg-config unzip bzip2 \
-            linux-headers-$(uname -r) kbuild || true
-
+            linux-headers-$(uname -r) kbuild
       - name: Configure
         run: |
-          ./configure --disable-docs
+          ./configure --disable-docs --build-headless
           test -f env.sh
 
       - name: Build
