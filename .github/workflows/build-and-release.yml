@@ -1,0 +1,74 @@
+name: build-and-release-virtualbox
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write  # required for creating a release
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential python3 perl \
+            libqt6base-dev qt6-base-dev-tools \
+            libssl-dev libcurl4-openssl-dev \
+            libxml2-dev libxslt1-dev \
+            libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev libxext-dev \
+            libasound2-dev libsdl2-dev \
+            mesa-common-dev libglu1-mesa-dev \
+            yasm pkg-config unzip bzip2 \
+            linux-headers-$(uname -r) || true
+
+      - name: Configure
+        run: |
+          ./configure --disable-docs
+          test -f env.sh
+
+      - name: Build
+        run: |
+          source ./env.sh
+          kmk -j"$(nproc)"
+
+      - name: Package
+        run: |
+          set -e
+          source ./env.sh
+          kmk packing
+          mkdir -p dist
+          # Collect common outputs (adjust if your paths differ)
+          find out -type f \( -name 'VirtualBox-*.tar.bz2' -o -name '*.run' -o -name '*.deb' -o -name '*.rpm' \) -print -exec cp {} dist/ \;
+          # Add a small build manifest for traceability
+          cat > dist/BUILD-METADATA.txt <<EOF
+          Commit: $GITHUB_SHA
+          Run: $GITHUB_RUN_ID
+          Date: $(date -u +%Y-%m-%dT%H:%M:%SZ)
+          Runner: $RUNNER_OS/$RUNNER_ARCH
+          EOF
+          ls -al dist
+
+      - name: Create GitHub Release (latest)
+        uses: softprops/action-gh-release@v2
+        with:
+          # Create/update a tag for this run; change the scheme if you prefer semantic tags
+          tag_name: v${{ github.run_number }}
+          name: "VirtualBox build #${{ github.run_number }}"
+          body: |
+            Automated build from commit ${{ github.sha }} on ${{ runner.os }} / ${{ runner.arch }}.
+            - Run ID: ${{ github.run_id }}
+            - Branch: ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          make_latest: true
+          files: |
+            dist/*
