@@ -27,7 +27,7 @@ jobs:
             libasound2-dev libsdl2-dev \
             mesa-common-dev libglu1-mesa-dev \
             yasm pkg-config unzip bzip2 \
-            linux-headers-$(uname -r) || true
+            linux-headers-$(uname -r) kbuild || true
 
       - name: Configure
         run: |
