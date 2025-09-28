@@ -40,6 +40,7 @@
 *********************************************************************************************************************************/
 #include "internal/iprt.h"
 #include <iprt/buildconfig.h>
+#define IPRT_BLDCFG_SCM_REV 0
 
 
 
@@ -53,16 +54,6 @@ RTDECL(uint32_t) RTBldCfgRevision(void)
 RTDECL(const char *) RTBldCfgRevisionStr(void)
 {
     return RT_XSTR(IPRT_BLDCFG_SCM_REV);
-}
-
-#else
-RTDECL(uint32_t) RTBldCfgRevision(void)
-{
-    return 0; // or another suitable default
-}
-RTDECL(const char *) RTBldCfgRevisionStr(void)
-{
-    return "it's unknown bro";
 }
 #endif
 
